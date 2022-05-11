@@ -21,6 +21,7 @@ Plan.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "user",
         key: "id",
@@ -28,6 +29,7 @@ Plan.init(
     },
     activity_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "activity",
         key: "id",
@@ -35,6 +37,7 @@ Plan.init(
     },
     hotel_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "hotel",
         key: "id",
@@ -42,6 +45,7 @@ Plan.init(
     },
     restaurant_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "restaurant",
         key: "id",
