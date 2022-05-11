@@ -2,7 +2,6 @@
 <br>
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-
 <br>
 
 ## <ins> Table of Contents: </ins>
