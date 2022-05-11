@@ -4,6 +4,17 @@ const { User } = require("../../models");
 // create a new user
 router.post("/", async (req, res) => {
     try {
+        const checkUser = await User.findOne({
+            where: {
+                username: req.body.username
+            }
+        });
+
+        if (checkUser) {
+            res.status(500).json({ message: "User already exists." });
+            return;
+        }
+
         const dbUserData = await User.create({
             username: req.body.username,
             password: req.body.password
