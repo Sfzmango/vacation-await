@@ -1,7 +1,7 @@
 # vacation-await      
 <br>
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![License:MIT](https://img.shields.io/badge/License:_MIT-black?style=for-the-badge)
 <br>
 
 ## <ins> Table of Contents: </ins>
