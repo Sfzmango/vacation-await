@@ -19,7 +19,10 @@
 
 ## <ins> Questions? </ins>
 
-### By []()
+### By The Vacation Awaits Team
+- Maung Htike
+- Keerti Chaudhary
+- Callan Hunter
 ### Email: 
 <br>
 
@@ -91,6 +94,9 @@ Please download all the files included in the repository. Afterwards, please ope
 
 Special Thanks to: 
 Vacation Awaits Dev Team
+- Maung Htike
+- Keerti Chaudhary
+- Callan Hunter
 <br>
 
 ## <ins> License: </ins>
