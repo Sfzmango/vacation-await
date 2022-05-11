@@ -30,14 +30,19 @@ router.post("/login", async (req, res) => {
         });
 
         if (!dbUserData) {
-            res.status(400).json({ message: "Invalid email or password." });
+            res.status(400).json({ message: "Invalid username." });
             return;
         }
 
+        console.log({ db_message: dbUserData.password });
+        console.log({ req_message: req.body.password });
+
         const passwordChecker = await dbUserData.checkPassword(req.body.password);
 
+        console.log({ pc_message: passwordChecker });
+
         if (!passwordChecker) {
-            res.status(400).json({ message: "Invalid email or password." });
+            res.status(400).json({ message: "Invalid password." });
             return;
         }
 
@@ -56,9 +61,11 @@ router.post("/login", async (req, res) => {
 router.post("/logout", async (req, res) => {
     if (req.session.loggedIn) {
         req.session.destroy(() => {
+            console.log({ logout_message: "Logout successful" });
             res.status(204).end();
         });
     } else {
+        console.log({ logout_message: "Logout error" });
         res.status(404).end();
     }
 });
