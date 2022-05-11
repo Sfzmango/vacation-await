@@ -17,7 +17,7 @@ Restaurant.init(
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     price: {
       type: DataTypes.FLOAT,
@@ -33,11 +33,11 @@ Restaurant.init(
     },
     reviews: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     contact_number: {
       type: DataTypes.INT,
-      allowNull: false,
+      allowNull: true,
     },
     image_url: {
       type: DataTypes.VARCHAR(100),
