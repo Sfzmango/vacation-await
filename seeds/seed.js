@@ -1,7 +1,7 @@
 const sequelize = require("../config/connection");
 
 const userSeeds = require("./userSeeds");
-const postSeeds = require("./postSeeds");
+const planSeeds = require("./planSeeds");
 const commentSeeds = require("./commentSeeds");
 const activitySeeds = require("./activitySeeds");
 const hotelSeeds = require("./hotelSeeds");
@@ -11,7 +11,7 @@ const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
   await userSeeds();
-  await postSeeds();
+  await planSeeds();
   await commentSeeds();
   await activitySeeds();
   await hotelSeeds();
