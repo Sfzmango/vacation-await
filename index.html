@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.1/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.1/dist/js/uikit-icons.min.js"></script>
 </head>
-
+<!--navbar-->
 <body class="">
     <nav class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-left">
@@ -60,9 +60,9 @@
         </div>
     </nav>
 
-    <div class="uk-position-relative uk-visible-toggle" tabindex="1" uk-slideshow="autoplay: true">
+    <div class="uk-position-inline" uk-slideshow="min-height: 300; max-height: 400; autoplay: true" autoplay-interval: 5000>
 
-        <ul class="uk-slideshow-items">
+        <ul class="uk-slideshow-items" uk-slideshow="">
             <li>
                 <img src="https://cdn.mos.cms.futurecdn.net/QF5qpbogF6JCsuogypL3Fd-1024-80.jpg.webp" alt="" uk-cover>
                 <div class="uk-position-center uk-position-small uk-text-center uk-light">
@@ -92,11 +92,6 @@
                 </div>
             </li>
         </ul>
-    
-        <div class="uk-light">
-            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-        </div>
     
     </div>
 
