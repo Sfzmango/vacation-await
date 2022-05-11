@@ -11,11 +11,11 @@ const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
   await userSeeds();
-  await planSeeds();
-  await commentSeeds();
   await activitySeeds();
   await hotelSeeds();
   await restaurantSeeds();
+  await planSeeds();
+  await commentSeeds();
 
   process.exit(0);
 };

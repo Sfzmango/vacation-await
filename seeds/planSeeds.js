@@ -1,23 +1,17 @@
-const { Post } = require("../models");
+const { Plan } = require("../models");
 
-const postData = [
+const planData = [
   {
-    title: "Los Angeles, California",
-    content: "Great place to go! Definitely will go again.",
+    id: 1,
+    location_name: "Los Angeles, California",
+    location_id: 1,
     user_id: 1,
-  },
-  {
-    title: "Miami, Florida",
-    content: "Tough to beat the beaches and the food.",
-    user_id: 2,
-  },
-  {
-    title: "Chicago, Illinois",
-    content: "Best trip i have ever gone on.",
-    user_id: 3,
+    activity_id: 1,
+    hotel_id: 1,
+    restaurant_id: 1,
   },
 ];
 
-const postSeedData = () => Post.bulkCreate(postData);
+const planSeedData = () => Plan.bulkCreate(planData);
 
-module.exports = postSeedData;
+module.exports = planSeedData;
