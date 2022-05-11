@@ -5,7 +5,7 @@ const Activity = require("./Activity");
 const Hotel = require("./Hotel");
 const Restaurant = require("./Restaurant");
 
-User.hasMany(Plans, {
+User.hasMany(Plan, {
   foreignKey: "user_id",
   onDelete: "CASCADE",
 });
@@ -23,7 +23,7 @@ Comment.belongsTo(Plan, {
   foreignKey: "plan_id",
 });
 
-User.hasmany(Comment, {
+User.hasOne(Comment, {
   foreignKey: "user_id",
   onDelete: "CASCADE",
 });

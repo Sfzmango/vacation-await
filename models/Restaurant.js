@@ -36,11 +36,11 @@ Restaurant.init(
       allowNull: true,
     },
     contact_number: {
-      type: DataTypes.INT,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     image_url: {
-      type: DataTypes.VARCHAR(100),
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
