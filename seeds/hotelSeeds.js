@@ -2,14 +2,15 @@ const { Hotel } = require("../models");
 
 const hotel = [
   {
-    name: "hotel",
-    price: 250,
+    name: "Grand Hyatt",
+    price: 370,
     rating: 4,
-    address: "San francisco",
+    address: "345 Stockton Street, San Francisco, California, United States",
     reviews: "Try this hotel!",
-    contact_number: 123456,
+    contact_number: 4153981234,
     image_url: "This should be image url",
-    web_url: "This should be web url",
+    web_url:
+      "https://www.hyatt.com/en-US/hotel/california/grand-hyatt-san-francisco/sfous",
   },
 ];
 

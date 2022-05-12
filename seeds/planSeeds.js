@@ -3,7 +3,7 @@ const { Plan } = require("../models");
 const planData = [
   {
     id: 1,
-    location_name: "Los Angeles, California",
+    location_name: "San Francisco, California",
     location_id: 1,
     user_id: 1,
     activity_id: 1,
