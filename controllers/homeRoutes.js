@@ -5,7 +5,7 @@ const auth = require("../utils/auth");
 // home page
 router.get("/", async (req, res) => {
     try {
-        res.render("test");
+        res.render("homepage");
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -26,6 +26,26 @@ router.get("/login", async (req, res) => {
 router.get("/signup", async (req, res) => {
     try {
         res.render("signup");
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+// user profile
+router.get("/profile", async (req, res) => {
+    try {
+        res.render("profile");
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+// plans
+router.get("/plan", async (req, res) => {
+    try {
+        res.render("plan");
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
