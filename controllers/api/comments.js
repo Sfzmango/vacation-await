@@ -1,16 +1,24 @@
 const router = require("express").Router();
 const { Comment } = require("../../models");
 
-router.get("/", async () => {
+// get all comments - working
+router.get("/", async (req, res) => {
+    const dbCommentData = await Comment.findAll();
+    res.status(200).json(dbCommentData);
+});
+
+// post a comment - working
+router.post("/", async (req, res) => {
 
 });
 
-router.post("/", async () => {
-
-});
-
-router.delete("/:id", async () => {
+// delete a comment - working
+router.delete("/:id", async (req, res) => {
 
 });
 
 module.exports = router;
+
+
+
+
