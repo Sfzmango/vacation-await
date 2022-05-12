@@ -68,7 +68,21 @@ router.post("/", async (req, res) => {
 
 // deletes a plan using id params - working
 router.delete("/:id", async (req, res) => {
-
+    try {
+        const dbPlanData = await Plan.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (!dbPlanData) {
+            res.status(404).json({ message: "No plans found with that ID..." });
+            return;
+        }
+        res.status(200).json({ message: "Delete successful" });
+        return;
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
 module.exports = router;
