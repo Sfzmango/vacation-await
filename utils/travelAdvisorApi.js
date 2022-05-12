@@ -8,10 +8,6 @@ let budget = 500;
 let hotelBudget = budget / 8 * 3;
 let hotelFilters;
 
-const randomizer = (e) => {
-    ;
-};
-
 const location = {
     method: "GET",
     url: "https://travel-advisor.p.rapidapi.com/locations/search",
@@ -29,16 +25,18 @@ const location = {
     }
 };
 
+console.log("Converting location name to ID...");
+
 // gets the location id
 axios.request(location)
     .then((res) => {
         let locationRes = res.data;
         console.log(locationRes.data);
-        console.log("Testing below");
 
         // get the location id from the api
         let location_id = locationRes.data[0].result_object.location_id;
         console.log(location_id);
+        console.log("Grabbing list of hotels from the location ID...");
 
         const hotelOptions = {
             method: "GET",
@@ -70,6 +68,7 @@ axios.request(location)
                 console.log("Selected index: ", randomHotelIndex);
                 let randomHotelId = hotelData[randomHotelIndex].location_id;
 
+                console.log("Selecting a random hotel...");
 
                 const hotelDetails = {
                     method: "GET",
@@ -105,7 +104,7 @@ axios.request(location)
                             "web_url": hotelInfo.web_url
                         };
 
-                        console.log(randomHotelInfo);
+                        console.log("Hotel Generated: ", randomHotelInfo);
 
                         // ============= write save hotel code into db here =========================
                     });
