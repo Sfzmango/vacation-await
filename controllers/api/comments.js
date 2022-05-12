@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     res.status(200).json(dbCommentData);
 });
 
-// post a comment - working
+// post a comment - mostly working, need to get user_id
 router.post("/", async (req, res) => {
 
     /* syntax 
