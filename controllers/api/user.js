@@ -3,6 +3,13 @@ const { User } = require("../../models");
 
 // create a new user
 router.post("/", async (req, res) => {
+    /* syntax 
+    {
+    "username": "notmanuel1",
+    "password": "password999"
+    }
+    */
+
     try {
         const checkUser = await User.findOne({
             where: {
@@ -33,6 +40,13 @@ router.post("/", async (req, res) => {
 
 // logs user in
 router.post("/login", async (req, res) => {
+    /* syntax 
+    {
+    "username": "notmanuel1",
+    "password": "password999"
+    }
+    */
+
     try {
         const dbUserData = await User.findOne({
             where: {
