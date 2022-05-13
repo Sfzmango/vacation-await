@@ -14,6 +14,18 @@ const activity = [
     web_url: "https://www.goldengate.org/",
     opening_hour: 5,
   },
+  {
+    name: "Winery Tour",
+    description: "Yarra Valley Wine and Winery Tour from Melbourne",
+    price: 0,
+    rating: 5.0,
+    address: "Melbourne,Australia",
+    reviews: "Amazing Wine, Beautiful Scenery",
+    contact_number: 0396500888,
+    image_url: "This should be image url",
+    web_url: "https://www.yarravalleywinetastingtours.com.au/",
+    opening_hour: 5,
+  },
 ];
 
 const activitySeeds = () => Activity.bulkCreate(activity);
