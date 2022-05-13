@@ -1,29 +1,18 @@
 <article class="uk-comment">
+    {{#each this}}
     <header class="uk-comment-header">
         <div class="uk-grid-medium uk-flex-middle" uk-grid>
             <div class="uk-width-expand">
                 <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"></a></h4>
                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                    <li><a href="#">Username</a></li>
+                    {{User}}
                     <li><a href="#">Reply</a></li>
                 </ul>
             </div>
         </div>
     </header>
     <div class="uk-comment-body">
-        <p></p>
+        {{Comment}}
     </div>
-</article>
-
-<div class="comments">
-    {{#each this}}
-    <section class="comment">
-        <div class="text">
-            {{this.comment_text}}
-        </div>
-        <div class="meta">
-            - {{user.username}} on {{this.created_at}}
-        </div>
-    </section>
     {{/each}}
-</div>
+</article>
