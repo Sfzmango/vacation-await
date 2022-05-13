@@ -10,15 +10,6 @@ const planData = [
     hotel_id: 1,
     restaurant_id: 1,
   },
-  {
-    id: 2,
-    location_name: "Melbourne, Australia",
-    location_id: 2,
-    user_id: 2,
-    activity_id: 2,
-    hotel_id: 2,
-    restaurant_id: 2,
-  },
 ];
 
 const planSeedData = () => Plan.bulkCreate(planData);
