@@ -148,11 +148,6 @@ function getUserPreferences() {
                                                 activityPriceRange(activityInfo.offer_group.offer_list);
                                             }
 
-                                            let activityPhotos = "https://demofree.sirv.com/nope-not-here.jpg";
-                                            if (activityInfo.photo.images.original.url) {
-                                                activityPhotos = activityInfo.photo.images.original.url;
-                                            }
-
                                             randomActivityInfo = {
                                                 "name": activityInfo.name,
                                                 "description": activityInfo.description,
@@ -207,14 +202,14 @@ function getUserPreferences() {
                                                             console.log("Restaurant Generated: ", randomRestaurantInfo);
 
                                                             // ============= save obj into db here =======
+                                                            console.log(randomActivityInfo.name);
+                                                            console.log(JSON.stringify({ randomActivityInfo }));
 
-
-
-                                                            async function seedPlan() {
+                                                            (async () => {
                                                                 // seed activity into db
                                                                 const response = await fetch("/api/plans/activity", {
                                                                     method: "POST",
-                                                                    body: JSON.stringify({ randomActivityInfo }),
+                                                                    body: randomActivityInfo,
                                                                     headers: { "Content-Type": "application/json" },
                                                                 });
 
@@ -280,7 +275,7 @@ function getUserPreferences() {
                                                                     alert("Error");
                                                                 }
                                                             }
-                                                            seedPlan();
+                                                            );
                                                         });
                                                 });
                                         });
