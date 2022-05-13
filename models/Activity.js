@@ -20,28 +20,28 @@ Activity.init(
       allowNull: true,
     },
     price: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
+      type: DataTypes.CHAR,
+      allowNull: true,
     },
     rating: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     reviews: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
     contact_number: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.CHAR,
       allowNull: true,
     },
     web_url: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {

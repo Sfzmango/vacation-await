@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Restaurant extends Model {}
+class Restaurant extends Model { }
 
 Restaurant.init(
   {
@@ -20,28 +20,28 @@ Restaurant.init(
       allowNull: true,
     },
     price: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     rating: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     reviews: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
     contact_number: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.CHAR,
       allowNull: true,
     },
     image_url: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
