@@ -22,73 +22,54 @@
             <ul class="uk-navbar-nav">
                 <li>
                     <a href="#">Vacation Awaits</a>
-                    <div class="uk-navbar-dropdown">
-                        <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li class="uk-nav-header">Header</li>
-                            <li><a href="#">Item</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li class="uk-nav-divider"></li>
-                            <li><a href="#">Item</a></li>
-                        </ul>
-                    </div>
                 </li>
             </ul>
         </div>
         <div class="uk-navbar-right">
     
             <ul class="uk-navbar-nav">
-                <li class="uk-active"><a href="#">Home</a></li>
+                <li class="uk-active"><a href="/">Home</a></li>
                 <li>
                     <a href="#">Profile</a>
-                    <div class="uk-navbar-dropdown">
-                        <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li><a href="#">Login/Signup</a></li>
-                            <li class="uk-nav-header">Header</li>
-                            <li><a href="#">Login/Signup</a></li>
-                            <li><a href="#">Login/Signup</a></li>
-                            <li class="uk-nav-divider"></li>
-                            <li><a href="#">Item</a></li>
-                        </ul>
-                    </div>
                 </li>
-                <li><a href="#">Login/Signup</a></li>
+                <li><a href="views/login.handlebars">Login/Signup</a></li>
             </ul>
     
         </div>
     </nav>
 <!--slideshow-->
     <div class="uk-position-inline" uk-slideshow="min-height: 300; max-height: 400; autoplay: true" autoplay-interval: 5000>
-
+        <form class="uk-search uk-search-default">
+            <span uk-search-icon></span>
+            <input class="uk-search-input" type="search" placeholder="Search Location">
+        </form>
         <ul class="uk-slideshow-items" uk-slideshow="">
             <li>
-                <img src="https://cdn.mos.cms.futurecdn.net/QF5qpbogF6JCsuogypL3Fd-1024-80.jpg.webp" alt="" uk-cover>
-                <div class="uk-position-center uk-position-small uk-text-center uk-light">
-                    <h2 class="uk-margin-remove">Center</h2>
-                    <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <img src="https://images.unsplash.com/photo-1597634285596-01fd1bffe116?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZhY2F0aW9ufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="" uk-cover>
+                <div class="uk-overlay uk-overlay-default uk-position-bottom-right uk-text-center uk-text-primary uk-width-1-4@m uk-margin-small-bottom uk-margin-small-right uk-border-rounded">
+                    <h3 class="uk-margin-remove uk-text-primary">Location</h3>
+                    <a class="uk-button uk-button-primary uk-border-pill" href="#">Start Planning</a>
                 </div>
             </li>
             <li>
                 <img src="https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ" alt="" uk-cover>
-                <div class="uk-position-bottom uk-position-medium uk-text-center uk-light">
-                    <h3 class="uk-margin-remove">Bottom</h3>
-                    <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <div class="uk-overlay uk-overlay-default uk-position-bottom-right uk-text-center uk-text-primary uk-width-1-4@m uk-margin-small-bottom uk-margin-small-right uk-border-rounded">
+                    <h3 class="uk-margin-remove uk-text-primary">Location</h3>
+                    <a class="uk-button uk-button-primary uk-border-pill" href="#">Start Planning</a>
                 </div>
             </li>
             <li>
                 <img src="https://content.r9cdn.net/rimg/dimg/ab/8d/b816046d-city-42547-168a07c4eec.jpg?width=1750&height=1000&xhint=2826&yhint=2333&crop=true" alt="" uk-cover>
-                <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center">
-                    <h3 class="uk-margin-remove">Overlay Bottom</h3>
-                    <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <div class="uk-overlay uk-overlay-default uk-position-bottom-right uk-text-center uk-text-primary uk-width-1-4@m uk-margin-small-bottom uk-margin-small-right uk-border-rounded">
+                    <h3 class="uk-margin-remove uk-text-primary">Location</h3>
+                    <a class="uk-button uk-button-primary uk-border-pill" href="#">Start Planning</a>
                 </div>
             </li>
             <li>
                 <img src="https://www.libertytravel.com/sites/default/files/styles/full_size/public/New-Zealand_hero.jpg?itok=spg0eXLa" alt="" uk-cover>
-                <div class="uk-overlay uk-overlay-default uk-position-bottom-right uk-position-small">
-                    <h3 class="uk-margin-remove">Overlay Bottom Right</h3>
-                    <p class="uk-margin-remove">Lorem ipsum dolor sit amet.</p>
+                <div class="uk-overlay uk-overlay-default uk-position-bottom-right uk-text-center uk-width-1-4@m uk-margin-small-bottom uk-margin-small-right uk-border-rounded">
+                    <h3 class="uk-margin-remove uk-text-primary">Location</h3>
+                    <a class="uk-button uk-button-primary uk-border-pill" href="">Start Planning</a>
                 </div>
             </li>
         </ul>
@@ -101,11 +82,11 @@
         </h2>
     </div>
 <!--featured cards-->
-    <div class="uk-child-width-expand@s uk-text-center" uk-grid>
+    <div class="uk-child-width-expand@s uk-text-center uk-height-match" uk-grid>
         <div>
             <div class="uk-card uk-card-default">
                 <div class="uk-card-media-top">
-                    <img src="https://media.istockphoto.com/photos/summer-tropical-beach-background-glasses-and-palm-tree-reflex-picture-id1155508685?k=20&m=1155508685&s=612x612&w=0&h=_WYFV9P2l-qaubx7wV-WOf4cqfQxJBi-ruHodKHv7OU=" width="1800" height="1200" alt="">
+                    <img src="https://media.istockphoto.com/photos/two-lounge-chairs-under-tent-on-beach-picture-id489833698?b=1&k=20&m=489833698&s=170667a&w=0&h=WJ4a8Tt1cGV3xUQ8klWiRXQhN5DTdVI0s33K7kxMsIY=" width="1800" height="1200" alt="">
                 </div>
                 <div class="uk-card-body">
                     <h3 class="uk-card-title">Media Top</h3>
@@ -128,7 +109,7 @@
                 <div>
                     <div class="uk-card uk-card-default">
                         <div class="uk-card-media-top">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXPisaBHDDvEtNhC3TgGZWyHMrhfOlkEG_Nw&usqp=CAU" width="1800" height="1200" alt="">
+                            <img src="https://images.pexels.com/photos/3155666/pexels-photo-3155666.jpeg?cs=srgb&dl=pexels-asad-photo-maldives-3155666.jpg&fm=jpg" width="1800" height="1200" alt="">
                         </div>
                         <div class="uk-card-body">
                             <h3 class="uk-card-title">Media Top</h3>
@@ -147,7 +128,6 @@
                         </div>
                     </div>
                 </div>
-
     <!-- <main class="container">
       <h1 class="display-2 py-5 text-light"><span><img src=""></span>  Welcome aboard </h1>
       {{{ body }}}
