@@ -32,7 +32,7 @@ Hotel.init(
       allowNull: true,
     },
     contact_number: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: true,
     },
     image_url: {
