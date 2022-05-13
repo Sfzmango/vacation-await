@@ -8,6 +8,11 @@ let budget = 500;
 let hotelBudget = budget / 8 * 3;
 let hotelFilters;
 let activityFilters;
+let cuisuineFilters = 9908;
+let dietRestrictions = 10697;
+let randomHotelInfo;
+let randomActivityInfo;
+let randomRestaurantInfo;
 
 const location = {
     method: "GET",
@@ -41,181 +46,259 @@ axios.request(location)
 
         // ================ Generating Hotel ================
 
-        /*
-        
-                console.log("Grabbing list of hotels from the location ID...");
-        
-                const hotelOptions = {
+
+
+        console.log("Grabbing list of hotels from the location ID...");
+
+        const hotelOptions = {
+            method: "GET",
+            url: "https://travel-advisor.p.rapidapi.com/hotels/list",
+            params: {
+                location_id: location_id,
+                adults: numAdults,
+                rooms: numRooms,
+                nights: numNights,
+                pricesmax: hotelBudget,
+                currency: "USD",
+                amenities: hotelFilters,
+                limit: "30",
+                sort: "recommended",
+                lang: "en_US"
+            },
+            headers: {
+                "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
+                "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
+            }
+        };
+
+        // gets a random hotel id
+        axios.request(hotelOptions)
+            .then((res) => {
+                let hotelData = res.data.data;
+                console.log(hotelData);
+                let randomHotelIndex = Math.floor(Math.random() * (hotelData.length));
+                console.log("Selected index: ", randomHotelIndex);
+                let randomHotelId = hotelData[randomHotelIndex].location_id;
+
+                console.log("Selecting a random hotel...");
+
+                const hotelDetails = {
                     method: "GET",
-                    url: "https://travel-advisor.p.rapidapi.com/hotels/list",
+                    url: "https://travel-advisor.p.rapidapi.com/hotels/get-details",
                     params: {
-                        location_id: location_id,
+                        location_id: randomHotelId,
                         adults: numAdults,
-                        rooms: numRooms,
-                        nights: numNights,
-                        pricesmax: hotelBudget,
+                        lang: "en_US",
                         currency: "USD",
-                        amenities: hotelFilters,
-                        limit: "30",
-                        sort: "recommended",
-                        lang: "en_US"
+                        nights: numNights,
+                        rooms: numRooms
                     },
                     headers: {
                         "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
                         "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
                     }
                 };
-        
-                // gets a random hotel id
-                axios.request(hotelOptions)
+
+                // get hotel details
+                axios.request(hotelDetails)
                     .then((res) => {
-                        let hotelData = res.data.data;
-                        console.log(hotelData);
-                        let randomHotelIndex = Math.floor(Math.random() * (hotelData.length));
-                        console.log("Selected index: ", randomHotelIndex);
-                        let randomHotelId = hotelData[randomHotelIndex].location_id;
-        
-                        console.log("Selecting a random hotel...");
-        
-                        const hotelDetails = {
+
+                        let hotelInfo = res.data.data[0];
+
+                        randomHotelInfo = {
+                            "name": hotelInfo.name,
+                            "price": hotelInfo.price,
+                            "rating": hotelInfo.rating,
+                            "address": hotelInfo.address,
+                            "reviews": hotelInfo.room_tips,
+                            "contact_number": hotelInfo.phone,
+                            "image_url": hotelInfo.photo.images.large.url,
+                            "web_url": hotelInfo.web_url
+                        };
+
+                        console.log("Hotel Generated: ", randomHotelInfo);
+
+                        // ============= write save hotel code into db here =========================
+
+
+                        // ================ Generating Activity ================
+
+
+
+                        const activityOptions = {
                             method: "GET",
-                            url: "https://travel-advisor.p.rapidapi.com/hotels/get-details",
+                            url: "https://travel-advisor.p.rapidapi.com/attractions/list",
                             params: {
-                                location_id: randomHotelId,
-                                adults: numAdults,
-                                lang: "en_US",
+                                location_id: location_id,
                                 currency: "USD",
-                                nights: numNights,
-                                rooms: numRooms
+                                lang: "en_US",
+                                lunit: "mi",
+                                limit: "30",
+                                sort: "recommended",
+                                subcategory: activityFilters
                             },
                             headers: {
                                 "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
                                 "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
                             }
                         };
-        
-                        // get hotel details
-                        axios.request(hotelDetails)
-                            .then((res) => {
-        
-                                let hotelInfo = res.data.data[0];
-        
-                                let randomHotelInfo = {
-                                    "name": hotelInfo.name,
-                                    "price": hotelInfo.price,
-                                    "rating": hotelInfo.rating,
-                                    "address": hotelInfo.address,
-                                    "reviews": hotelInfo.room_tips,
-                                    "contact_number": hotelInfo.phone,
-                                    "image_url": hotelInfo.photo.images.large.url,
-                                    "web_url": hotelInfo.web_url
-                                };
-        
-                                console.log("Hotel Generated: ", randomHotelInfo);
-        
-                                // ============= write save hotel code into db here =========================
-                            });
-                    });
-        
-        */
 
-        // ================ Generating Activity ================
-
-        /*
-        
-                const activityOptions = {
-                    method: "GET",
-                    url: "https://travel-advisor.p.rapidapi.com/attractions/list",
-                    params: {
-                        location_id: location_id,
-                        currency: "USD",
-                        lang: "en_US",
-                        lunit: "mi",
-                        limit: "30",
-                        sort: "recommended",
-                        subcategory: activityFilters
-                    },
-                    headers: {
-                        "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-                        "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
-                    }
-                };
-        
-                console.log("Grabbing list of activities from the location ID...");
-                // gets a random activity
-                axios.request(activityOptions)
-                    .then((res) => {
-                        let activityData = res.data.data;
-                        console.log(activityData);
-                        let randomActivityIndex = Math.floor(Math.random() * (activityData.length));
-                        console.log("Selected index: ", randomActivityIndex);
-                        let randomActivityId = activityData[randomActivityIndex].location_id;
-        
-                        console.log("Selecting a random activity...");
-        
-                        const activityDetails = {
-                            method: "GET",
-                            url: "https://travel-advisor.p.rapidapi.com/attractions/get-details",
-                            params: { location_id: randomActivityId, currency: "USD", lang: "en_US" },
-                            headers: {
-                                "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-                                "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
-                            }
-                        };
-        
-                        // get activity details
-                        axios.request(activityDetails)
+                        console.log("Grabbing list of activities from the location ID...");
+                        // gets a random activity
+                        axios.request(activityOptions)
                             .then((res) => {
-        
-                                let activityInfo = res.data;
-        
-                                let activityMin;
-                                let activityMax;
-        
-                                function activityPriceRange(e) {
-                                    let tempArr = [];
-                                    // gets all the prices
-                                    for (let i = 0; i < e.length; i++) {
-                                        let tempPrice = e[i].price;
-                                        console.log(tempPrice);
-                                        let tpn = tempPrice.replace("$", "");
-                                        console.log(tpn);
-                                        tempArr.push(tpn);
+                                let activityData = res.data.data;
+                                console.log(activityData);
+                                let randomActivityIndex;
+                                function genActivityIndex() {
+                                    randomActivityIndex = Math.floor(Math.random() * (activityData.length));
+                                    if (randomActivityIndex === 6) {
+                                        genActivityIndex();
                                     }
-                                    console.log(tempArr);
-                                    activityMin = Math.min(...tempArr);
-                                    activityMax = Math.max(...tempArr);
-                                    console.log("Min:", activityMin, "Max:", activityMax);
                                 }
-        
-                                if ("offer_group" in activityInfo) {
-                                    activityPriceRange(activityInfo.offer_group.offer_list);
-                                }
-        
-                                let randomActivityInfo = {
-                                    "name": activityInfo.name,
-                                    "description": activityInfo.description,
-                                    "price": `$${activityMin} - $${activityMax}`,
-                                    "rating": activityInfo.rating,
-                                    "address": activityInfo.address,
-                                    "reviews": activityInfo.reviews,
-                                    "contact_number": activityInfo.phone,
-                                    "image_url": activityInfo.photo.images.original.url,
-                                    "web_url": activityInfo.web_url,
-                                    "hours": activityInfo.hours,
+                                genActivityIndex();
+                                console.log("Selected index: ", randomActivityIndex);
+                                let randomActivityId = activityData[randomActivityIndex].location_id;
+
+                                console.log("Selecting a random activity...");
+
+                                const activityDetails = {
+                                    method: "GET",
+                                    url: "https://travel-advisor.p.rapidapi.com/attractions/get-details",
+                                    params: { location_id: randomActivityId, currency: "USD", lang: "en_US" },
+                                    headers: {
+                                        "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
+                                        "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
+                                    }
                                 };
-        
-                                console.log("Activity Generated: ", randomActivityInfo);
-        
-                                // =========== write save activity code into db here ====================
+
+                                // get activity details
+                                axios.request(activityDetails)
+                                    .then((res) => {
+
+                                        let activityInfo = res.data;
+
+                                        let activityMin;
+                                        let activityMax;
+
+                                        function activityPriceRange(e) {
+                                            let tempArr = [];
+                                            // gets all the prices
+                                            for (let i = 0; i < e.length; i++) {
+                                                let tempPrice = e[i].price;
+                                                console.log(tempPrice);
+                                                let tpn = tempPrice.replace("$", "");
+                                                console.log(tpn);
+                                                tempArr.push(tpn);
+                                            }
+                                            console.log(tempArr);
+                                            activityMin = Math.min(...tempArr);
+                                            activityMax = Math.max(...tempArr);
+                                            console.log("Min:", activityMin, "Max:", activityMax);
+                                        }
+
+                                        if ("offer_group" in activityInfo) {
+                                            activityPriceRange(activityInfo.offer_group.offer_list);
+                                        }
+
+                                        let activityPhotos = "https://demofree.sirv.com/nope-not-here.jpg";
+                                        if (activityInfo.photo.images.original.url) {
+                                            activityPhotos = activityInfo.photo.images.original.url;
+                                        }
+
+                                        randomActivityInfo = {
+                                            "name": activityInfo.name,
+                                            "description": activityInfo.description,
+                                            "price": `$${activityMin} - $${activityMax}`,
+                                            "rating": activityInfo.rating,
+                                            "address": activityInfo.address,
+                                            "reviews": activityInfo.reviews,
+                                            "contact_number": activityInfo.phone,
+                                            "image_url": activityPhotos,
+                                            "web_url": activityInfo.web_url,
+                                            "hours": activityInfo.hours,
+                                        };
+
+                                        console.log("Activity Generated: ", randomActivityInfo);
+
+                                        // =========== write save activity code into db here ====================
+
+
+
+                                        // ================ Generating restaurant ================
+
+                                        console.log("Grabbing list of restaurants from the location ID...");
+
+                                        const restaurantOptions = {
+                                            method: "GET",
+                                            url: "https://travel-advisor.p.rapidapi.com/restaurants/list",
+                                            params: {
+                                                location_id: location_id,
+                                                combined_food: cuisuineFilters,
+                                                currency: "USD",
+                                                lunit: "mi",
+                                                dietary_restrictions: dietRestrictions,
+                                                limit: "30",
+                                                lang: "en_US"
+                                            },
+                                            headers: {
+                                                "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
+                                                "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
+                                            }
+                                        };
+
+                                        // gets a random restaurant id
+                                        axios.request(restaurantOptions)
+                                            .then((res) => {
+                                                let restaurantData = res.data.data;
+                                                console.log(restaurantData);
+                                                let randomRestaurantIndex = Math.floor(Math.random() * (restaurantData.length));
+                                                console.log("Selected index: ", randomRestaurantIndex);
+                                                let randomRestaurantId = restaurantData[randomRestaurantIndex].location_id;
+
+                                                console.log("Selecting a random restaurant...");
+
+                                                const restaurantDetails = {
+                                                    method: "GET",
+                                                    url: "https://travel-advisor.p.rapidapi.com/restaurants/get-details",
+                                                    params: { location_id: randomRestaurantId, currency: "USD", lang: "en_US" },
+                                                    headers: {
+                                                        "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
+                                                        "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
+                                                    }
+                                                };
+
+                                                // get restaurant details
+                                                axios.request(restaurantDetails)
+                                                    .then((res) => {
+
+                                                        let restaurantInfo = res.data;
+
+                                                        randomRestaurantInfo = {
+                                                            "name": restaurantInfo.name,
+                                                            "description": restaurantInfo.description,
+                                                            "price": restaurantInfo.price,
+                                                            "rating": restaurantInfo.rating,
+                                                            "address": restaurantInfo.address,
+                                                            "reviews": restaurantInfo.reviews,
+                                                            "contact_number": restaurantInfo.phone,
+                                                            "image_url": restaurantInfo.photo.images.original.url,
+                                                            "web_url": restaurantInfo.website,
+                                                            "hours": restaurantInfo.hours,
+                                                        };
+
+                                                        console.log("===========================================");
+                                                        console.log("Hotel Generated: ", randomHotelInfo);
+                                                        console.log("Activity Generated: ", randomActivityInfo);
+                                                        console.log("Restaurant Generated: ", randomRestaurantInfo);
+
+                                                        // ============= write save restaurant code into db here =========================
+                                                    });
+                                            });
+                                    });
                             });
-        
                     });
-        
-                    */
-
-
-
+            });
     }).catch(function (err) {
         console.error(err);
     });
