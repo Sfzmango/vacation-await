@@ -4,11 +4,11 @@
 
 <div id="modal-example" uk-modal>
   <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
-    <form>
+    <form id="modalForm">
       <fieldset class="uk-fieldset">
         <h2>Itinerary planner</h2>
         <div class="uk-margin">
-          <input class="uk-input uk-border-rounded" type="text" placeholder="Enter destination">
+          <input class="uk-input uk-border-rounded" type="text" placeholder="Enter destination" id="location">
         </div>
         <h3 class="uk-text-primary">Activity Preferences</h3>
         <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
@@ -19,17 +19,12 @@
         </div>
         <h3 class="uk-text-primary">Hotel Preferences</h3>
         <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-
           <input class="uk-input uk-form-width-medium uk-form-small" type="text" placeholder="No of adults"
             id="noOfAdults">
-
-
           <input class="uk-input uk-form-width-medium uk-form-small" type="text" placeholder="No of nights"
             id="noOfNights">
-
           <input class="uk-input uk-form-width-medium uk-form-small" type="text" placeholder="No of rooms"
             id="noOfRooms">
-
           <label><input class="uk-checkbox" type="checkbox" id="freewifi"> Free Wifi</label>
           <label><input class="uk-checkbox" type="checkbox" id="spa"> Spa</label>
         </div>
@@ -44,10 +39,13 @@
           </label>
         </div>
       </fieldset>
+      <p class="uk-text-center">
+        <button class="uk-button uk-button-primary uk-modal-close uk-border-rounded" type="button"
+          id="formsubmitbutton">See your
+          trip</button>
+      </p>
     </form>
-    <p class="uk-text-center">
-      <button class="uk-button uk-button-primary uk-modal-close uk-border-rounded" type="button">See your
-        trip</button>
-    </p>
   </div>
 </div>
+
+<script src="/js/modal.js"></script>
