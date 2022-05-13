@@ -169,7 +169,7 @@ router.post("/restaurant", async (req, res) => {
 
 
 // create a plan into the db. - mostly working, need to get user_id
-router.post("/plan", async (req, res) => {
+router.post("/", async (req, res) => {
     /* syntax 
 {
 "location_name": "Vancouver, Canada",

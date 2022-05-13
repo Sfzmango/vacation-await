@@ -148,11 +148,6 @@ function getUserPreferences() {
                                                 activityPriceRange(activityInfo.offer_group.offer_list);
                                             }
 
-                                            let activityPhotos = "https://demofree.sirv.com/nope-not-here.jpg";
-                                            if (activityInfo.photo.images.original.url) {
-                                                activityPhotos = activityInfo.photo.images.original.url;
-                                            }
-
                                             randomActivityInfo = {
                                                 "name": activityInfo.name,
                                                 "description": activityInfo.description,
@@ -207,14 +202,32 @@ function getUserPreferences() {
                                                             console.log("Restaurant Generated: ", randomRestaurantInfo);
 
                                                             // ============= save obj into db here =======
-
-
+                                                            console.log(randomActivityInfo.name);
+                                                            console.log(JSON.stringify({
+                                                                "name": randomActivityInfo.name,
+                                                                "description": randomActivityInfo.description,
+                                                                "price": `$${activityMin} - $${activityMax}`,
+                                                                "rating": randomActivityInfo.rating,
+                                                                "address": randomActivityInfo.address,
+                                                                "reviews": randomActivityInfo.reviews[0].summary,
+                                                                "contact_number": randomActivityInfo.phone,
+                                                                "web_url": randomActivityInfo.web_url
+                                                            }));
 
                                                             async function seedPlan() {
                                                                 // seed activity into db
                                                                 const response = await fetch("/api/plans/activity", {
                                                                     method: "POST",
-                                                                    body: JSON.stringify({ randomActivityInfo }),
+                                                                    body: JSON.stringify({
+                                                                        "name": randomActivityInfo.name,
+                                                                        "description": randomActivityInfo.description,
+                                                                        "price": `$${activityMin} - $${activityMax}`,
+                                                                        "rating": randomActivityInfo.rating,
+                                                                        "address": randomActivityInfo.address,
+                                                                        "reviews": randomActivityInfo.reviews[0].summary,
+                                                                        "contact_number": randomActivityInfo.phone,
+                                                                        "web_url": randomActivityInfo.web_url
+                                                                    }),
                                                                     headers: { "Content-Type": "application/json" },
                                                                 });
 
@@ -224,14 +237,14 @@ function getUserPreferences() {
                                                                     const response = await fetch("/api/plans/hotel", {
                                                                         method: "POST",
                                                                         body: JSON.stringify({
-                                                                            name: randomHotelInfo.name,
-                                                                            price: randomHotelInfo.price,
-                                                                            rating: randomHotelInfo.rating,
-                                                                            address: randomHotelInfo.address,
-                                                                            reviews: randomHotelInfo.reviews[0].text,
-                                                                            contact_number: randomHotelInfo.contact_number,
-                                                                            image_url: randomHotelInfo.image_url,
-                                                                            web_url: randomHotelInfo.web_url,
+                                                                            "name": randomHotelInfo.name,
+                                                                            "price": randomHotelInfo.price,
+                                                                            "rating": randomHotelInfo.rating,
+                                                                            "address": randomHotelInfo.address,
+                                                                            "reviews": randomHotelInfo.reviews[0].text,
+                                                                            "contact_number": randomHotelInfo.contact_number,
+                                                                            "image_url": randomHotelInfo.image_url,
+                                                                            "web_url": randomHotelInfo.web_url,
                                                                         }),
                                                                         headers: { "Content-Type": "application/json" },
                                                                     });
@@ -241,7 +254,16 @@ function getUserPreferences() {
                                                                         // seed restaurant into db
                                                                         const response = await fetch("/api/plans/restaurant", {
                                                                             method: "POST",
-                                                                            body: JSON.stringify({ randomRestaurantInfo }),
+                                                                            body: JSON.stringify({
+                                                                                "name": restaurantInfo.name,
+                                                                                "description": restaurantInfo.description,
+                                                                                "price": restaurantInfo.price,
+                                                                                "rating": restaurantInfo.rating,
+                                                                                "address": restaurantInfo.address,
+                                                                                "reviews": restaurantInfo.reviews[0].summary,
+                                                                                "contact_number": restaurantInfo.phone,
+                                                                                "image_url": restaurantInfo.photo.images.original.url,
+                                                                            }),
                                                                             headers: { "Content-Type": "application/json" },
                                                                         });
 
@@ -251,12 +273,12 @@ function getUserPreferences() {
                                                                             const response = await fetch("/api/plans", {
                                                                                 method: "POST",
                                                                                 body: JSON.stringify({
-                                                                                    location_name: location_name,
-                                                                                    location_id: location_id,
-                                                                                    user_id: 4,
-                                                                                    activity_id: 3,
-                                                                                    hotel_id: 3,
-                                                                                    restaurant_id: 3,
+                                                                                    "location_name": location_name,
+                                                                                    "location_id": location_id,
+                                                                                    "user_id": 4,
+                                                                                    "activity_id": 3,
+                                                                                    "hotel_id": 3,
+                                                                                    "restaurant_id": 3,
                                                                                 }),
                                                                                 headers: { "Content-Type": "application/json" },
                                                                             });
@@ -281,6 +303,7 @@ function getUserPreferences() {
                                                                 }
                                                             }
                                                             seedPlan();
+
                                                         });
                                                 });
                                         });
