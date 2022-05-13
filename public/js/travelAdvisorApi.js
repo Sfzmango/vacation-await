@@ -337,9 +337,9 @@ function getUserPreferences() {
                                             location_name: location_name,
                                             location_id: location_id,
                                             user_id: 4,
-                                            activity_id: 3,
-                                            hotel_id: 3,
-                                            restaurant_id: 3,
+                                            activity_id: 2,
+                                            hotel_id: 2,
+                                            restaurant_id: 2,
                                           }),
                                           headers: {
                                             "Content-Type": "application/json",
