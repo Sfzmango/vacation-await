@@ -1,22 +1,23 @@
+{{#each plans as |plan| }}
 <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m uk-margin-xlarge-left uk-margin-medium-top">
   <h3 class="uk-card-title">Plan generated</h3>
   <h2>Hotel</h2>
-  <p>Name:</p>
-  <p>Address:</p>
-  <p>Price:</p>
-  <p>Rating:</p>
-  <p>Reviews:</p>
-  <p>Contact number:</p>
-  <p>Web URL:</p>
+  <p>Name:{{plan.hotel.name}}</p>
+  <p>Address:{{plan.hotel.address}}</p>
+  <p>Price:{{plan.hotel.price}}</p>
+  <p>Rating:{{plan.hotel.rating}}</p>
+  <p>Reviews:{{plan.hotel.reviews}}</p>
+  <p>Contact number:{{plan.hotel.contact_number}}</p>
+  <p>Web URL:{{plan.hotel.web_url}}</p>
 
   <h2>Restaurant</h2>
-  <p>Name:</p>
-  <p>Description:</p>
-  <p>Price:</p>
-  <p>Rating:</p>
-  <p>Address:</p>
-  <p>Reviews:</p>
-  <p>Contact number:</p>
+  <p>Name:{{plan.restaurant.name}}</p>
+  <p>Description:{{plan.restaurant.description}}</p>
+  <p>Price:{{plan.restaurant.price}}</p>
+  <p>Rating:{{plan.restaurant.rating}}</p>
+  <p>Address:{{plan.restaurant.address}}</p>
+  <p>Reviews:{{plan.restaurant.reviews}}</p>
+  <p>Contact number:{{plan.restaurant.contact_number}}</p>
 
   <h2>Activity</h2>
   <p>Name:</p>
@@ -29,3 +30,4 @@
   <p>Web URL:</p>
   <p>Opening_hour:</p>
 </div>
+{{/each}}
