@@ -5,16 +5,16 @@ const auth = require("../utils/auth");
 // home page
 router.get("/", async (req, res) => {
     try {
-        const dbPlanData = Plan.findAll({
-            include: [{ model: Plan }, { model: Activity }, { model: Hotel }, { model: Restaurant }]
-        });
+        // const dbPlanData = Plan.findAll({
+        //     include: [{ model: Plan }, { model: Activity }, { model: Hotel }, { model: Restaurant }]
+        // });
 
-        const planData = (await dbPlanData).map((e) => {
-            e.get({ plain: true });
-        });
+        // const planData = (await dbPlanData).map((e) => {
+        //     e.get({ plain: true });
+        // });
 
         res.render("homepage", {
-            planData
+            //planData
         });
     } catch (err) {
         console.log(err);
