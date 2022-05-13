@@ -1,5 +1,3 @@
-const axios = require("axios");
-
 var userPreference;
 
 function getUserPreferences() {
@@ -22,31 +20,24 @@ function getUserPreferences() {
     userPreference.noOfRooms = document.getElementById("noOfRooms").value;
     console.log(userPreference);
 
+
+
     let location_name = userPreference.location;
     let numAdults = userPreference.noOfAdults;
     let numRooms = userPreference.noOfRooms;
     let numNights = userPreference.noOfNights;
-    let hotelFilters;
-    let activityFilters;
-    let cuisuineFilters;
-    let dietRestrictions;
+    let hotelFilters = "free_wireless_internet_in_room";
+    let activityFilters = 47;
+    let cuisuineFilters = 9908;
+    let dietRestrictions = 10665;
     let randomHotelInfo;
     let randomActivityInfo;
     let randomRestaurantInfo;
 
 
 
-    const location = {
+    const apiKey = {
         method: "GET",
-        url: "https://travel-advisor.p.rapidapi.com/locations/search",
-        params: {
-            query: location_name,
-            limit: "30",
-            units: "mi",
-            currency: "USD",
-            sort: "relevance",
-            lang: "en_US"
-        },
         headers: {
             "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
             "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
@@ -56,10 +47,11 @@ function getUserPreferences() {
     console.log("Converting location name to ID...");
 
     // gets the location id
-    axios.request(location)
+    fetch(`https://travel-advisor.p.rapidapi.com/locations/search?query=${location_name}&limit=30&units=km&currency=USD&sort=relevance&lang=en_US`, apiKey)
+        .then(res => res.json())
         .then((res) => {
-            let locationRes = res.data;
-            console.log(locationRes.data);
+            let locationRes = res;
+            console.log(locationRes);
 
             // get the location id from the api
             let location_id = locationRes.data[0].result_object.location_id;
@@ -72,30 +64,12 @@ function getUserPreferences() {
 
             console.log("Grabbing list of hotels from the location ID...");
 
-            const hotelOptions = {
-                method: "GET",
-                url: "https://travel-advisor.p.rapidapi.com/hotels/list",
-                params: {
-                    location_id: location_id,
-                    adults: numAdults,
-                    rooms: numRooms,
-                    nights: numNights,
-                    currency: "USD",
-                    amenities: hotelFilters,
-                    limit: "30",
-                    sort: "recommended",
-                    lang: "en_US"
-                },
-                headers: {
-                    "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-                    "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
-                }
-            };
 
             // gets a random hotel id
-            axios.request(hotelOptions)
+            fetch(`https://travel-advisor.p.rapidapi.com/hotels/list?location_id=${location_id}&adults=${numAdults}&rooms=${numRooms}&nights=${numNights}&currency=USD&amenities=${hotelFilters}&order=asc&limit=30&sort=recommended&lang=en_US`, apiKey)
+                .then(res => res.json())
                 .then((res) => {
-                    let hotelData = res.data.data;
+                    let hotelData = res.data;
                     console.log(hotelData);
                     let randomHotelIndex = Math.floor(Math.random() * (hotelData.length));
                     console.log("Selected index: ", randomHotelIndex);
@@ -103,28 +77,12 @@ function getUserPreferences() {
 
                     console.log("Selecting a random hotel...");
 
-                    const hotelDetails = {
-                        method: "GET",
-                        url: "https://travel-advisor.p.rapidapi.com/hotels/get-details",
-                        params: {
-                            location_id: randomHotelId,
-                            adults: numAdults,
-                            lang: "en_US",
-                            currency: "USD",
-                            nights: numNights,
-                            rooms: numRooms
-                        },
-                        headers: {
-                            "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-                            "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
-                        }
-                    };
-
                     // get hotel details
-                    axios.request(hotelDetails)
+                    fetch(`https://travel-advisor.p.rapidapi.com/hotels/get-details?location_id=${randomHotelId}&adults=${numAdults}&lang=en_US&currency=USD&nights=${numNights}&rooms=${numRooms}`, apiKey)
+                        .then(response => response.json())
                         .then((res) => {
 
-                            let hotelInfo = res.data.data[0];
+                            let hotelInfo = res.data[0];
 
                             randomHotelInfo = {
                                 "name": hotelInfo.name,
@@ -144,31 +102,14 @@ function getUserPreferences() {
 
                             // ================ Generating Activity ================
 
-
-
-                            const activityOptions = {
-                                method: "GET",
-                                url: "https://travel-advisor.p.rapidapi.com/attractions/list",
-                                params: {
-                                    location_id: location_id,
-                                    currency: "USD",
-                                    lang: "en_US",
-                                    lunit: "mi",
-                                    limit: "30",
-                                    sort: "recommended",
-                                    subcategory: activityFilters
-                                },
-                                headers: {
-                                    "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-                                    "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
-                                }
-                            };
-
                             console.log("Grabbing list of activities from the location ID...");
+
                             // gets a random activity
-                            axios.request(activityOptions)
+                            fetch(`https://travel-advisor.p.rapidapi.com/attractions/list?location_id=${location_id}&currency=USD&lang=en_US&lunit=mi&sort=recommended&subcategory=${activityFilters}`, apiKey)
+                                .then(response => response.json())
                                 .then((res) => {
-                                    let activityData = res.data.data;
+
+                                    let activityData = res.data;
                                     console.log(activityData);
                                     let randomActivityIndex;
                                     function genActivityIndex() {
@@ -183,21 +124,12 @@ function getUserPreferences() {
 
                                     console.log("Selecting a random activity...");
 
-                                    const activityDetails = {
-                                        method: "GET",
-                                        url: "https://travel-advisor.p.rapidapi.com/attractions/get-details",
-                                        params: { location_id: randomActivityId, currency: "USD", lang: "en_US" },
-                                        headers: {
-                                            "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-                                            "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
-                                        }
-                                    };
-
                                     // get activity details
-                                    axios.request(activityDetails)
+                                    fetch(`https://travel-advisor.p.rapidapi.com/restaurants/get-details?location_id=${randomActivityId}&currency=USD&lang=en_US`, apiKey)
+                                        .then(response => response.json())
                                         .then((res) => {
 
-                                            let activityInfo = res.data;
+                                            let activityInfo = res;
 
                                             let activityMin;
                                             let activityMax;
@@ -250,28 +182,12 @@ function getUserPreferences() {
 
                                             console.log("Grabbing list of restaurants from the location ID...");
 
-                                            const restaurantOptions = {
-                                                method: "GET",
-                                                url: "https://travel-advisor.p.rapidapi.com/restaurants/list",
-                                                params: {
-                                                    location_id: location_id,
-                                                    combined_food: cuisuineFilters,
-                                                    currency: "USD",
-                                                    lunit: "mi",
-                                                    dietary_restrictions: dietRestrictions,
-                                                    limit: "30",
-                                                    lang: "en_US"
-                                                },
-                                                headers: {
-                                                    "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-                                                    "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
-                                                }
-                                            };
-
                                             // gets a random restaurant id
-                                            axios.request(restaurantOptions)
+                                            fetch(`https://travel-advisor.p.rapidapi.com/restaurants/list?location_id=${location_id}&combined_food=${cuisuineFilters}&currency=USD&lunit=mi&dietary_restrictions=${dietRestrictions}limit=30&lang=en_US`, apiKey)
+                                                .then(response => response.json())
                                                 .then((res) => {
-                                                    let restaurantData = res.data.data;
+
+                                                    let restaurantData = res.data;
                                                     console.log(restaurantData);
                                                     let randomRestaurantIndex = Math.floor(Math.random() * (restaurantData.length));
                                                     console.log("Selected index: ", randomRestaurantIndex);
@@ -279,21 +195,12 @@ function getUserPreferences() {
 
                                                     console.log("Selecting a random restaurant...");
 
-                                                    const restaurantDetails = {
-                                                        method: "GET",
-                                                        url: "https://travel-advisor.p.rapidapi.com/restaurants/get-details",
-                                                        params: { location_id: randomRestaurantId, currency: "USD", lang: "en_US" },
-                                                        headers: {
-                                                            "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-                                                            "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
-                                                        }
-                                                    };
-
                                                     // get restaurant details
-                                                    axios.request(restaurantDetails)
+                                                    fetch(`https://travel-advisor.p.rapidapi.com/restaurants/get-details?location_id=${randomRestaurantId}&currency=USD&lang=en_US`, apiKey)
+                                                        .then(response => response.json())
                                                         .then((res) => {
 
-                                                            let restaurantInfo = res.data;
+                                                            let restaurantInfo = res;
 
                                                             randomRestaurantInfo = {
                                                                 "name": restaurantInfo.name,
@@ -323,6 +230,9 @@ function getUserPreferences() {
         }).catch(function (err) {
             console.error(err);
         });
+
+
+
 }
 
 document
