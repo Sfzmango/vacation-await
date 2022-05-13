@@ -201,7 +201,7 @@ axios.request(location)
                                             activityPriceRange(activityInfo.offer_group.offer_list);
                                         }
 
-                                        let activityPhotos = "https://demofree.sirv.com/nope-not-here.jpg"
+                                        let activityPhotos = "https://demofree.sirv.com/nope-not-here.jpg";
                                         if (activityInfo.photo.images.original.url) {
                                             activityPhotos = activityInfo.photo.images.original.url;
                                         }
