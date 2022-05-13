@@ -1,11 +1,21 @@
 const router = require("express").Router();
-const { User, Plan, Comment } = require("../models");
+const { User, Plan, Activity, Hotel, Restaurant } = require("../models");
 const auth = require("../utils/auth");
 
 // home page
 router.get("/", async (req, res) => {
     try {
-        res.render("homepage");
+        const dbPlanData = Plan.findAll({
+            include: [{ model: Plan }, { model: Activity }, { model: Hotel }, { model: Restaurant }]
+        });
+
+        const planData = (await dbPlanData).map((e) => {
+            e.get({ plain: true });
+        });
+
+        res.render("homepage", {
+            planData
+        });
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
