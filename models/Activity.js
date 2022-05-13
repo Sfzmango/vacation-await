@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Activity extends Model {}
+class Activity extends Model { }
 
 Activity.init(
   {
@@ -39,16 +39,8 @@ Activity.init(
       type: DataTypes.BIGINT,
       allowNull: true,
     },
-    image_url: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     web_url: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    opening_hour: {
-      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

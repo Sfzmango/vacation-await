@@ -60,10 +60,7 @@ function getUserPreferences() {
 
             // ================ Generating Hotel ================
 
-
-
             console.log("Grabbing list of hotels from the location ID...");
-
 
             // gets a random hotel id
             fetch(`https://travel-advisor.p.rapidapi.com/hotels/list?location_id=${location_id}&adults=${numAdults}&rooms=${numRooms}&nights=${numNights}&currency=USD&amenities=${hotelFilters}&order=asc&limit=30&sort=recommended&lang=en_US`, apiKey)
@@ -96,9 +93,6 @@ function getUserPreferences() {
                             };
 
                             console.log("Hotel Generated: ", randomHotelInfo);
-
-                            // ============= write save hotel code into db here =========================
-
 
                             // ================ Generating Activity ================
 
@@ -165,18 +159,12 @@ function getUserPreferences() {
                                                 "price": `$${activityMin} - $${activityMax}`,
                                                 "rating": activityInfo.rating,
                                                 "address": activityInfo.address,
-                                                "reviews": activityInfo.reviews,
+                                                "reviews": activityInfo.reviews[0].summary,
                                                 "contact_number": activityInfo.phone,
-                                                "image_url": activityPhotos,
                                                 "web_url": activityInfo.web_url,
-                                                "hours": activityInfo.hours,
                                             };
 
                                             console.log("Activity Generated: ", randomActivityInfo);
-
-                                            // =========== write save activity code into db here ====================
-
-
 
                                             // ================ Generating restaurant ================
 
@@ -208,11 +196,9 @@ function getUserPreferences() {
                                                                 "price": restaurantInfo.price,
                                                                 "rating": restaurantInfo.rating,
                                                                 "address": restaurantInfo.address,
-                                                                "reviews": restaurantInfo.reviews,
+                                                                "reviews": restaurantInfo.reviews[0].summary,
                                                                 "contact_number": restaurantInfo.phone,
                                                                 "image_url": restaurantInfo.photo.images.original.url,
-                                                                "web_url": restaurantInfo.website,
-                                                                "hours": restaurantInfo.hours,
                                                             };
 
                                                             console.log("===========================================");
@@ -220,21 +206,95 @@ function getUserPreferences() {
                                                             console.log("Activity Generated: ", randomActivityInfo);
                                                             console.log("Restaurant Generated: ", randomRestaurantInfo);
 
-                                                            // ============= write save restaurant code into db here =========================
+                                                            // ============= save obj into db here =======
+
+
+
+                                                            async function seedPlan() {
+                                                                // seed activity into db
+                                                                const response = await fetch("/api/plans/activity", {
+                                                                    method: "POST",
+                                                                    body: JSON.stringify({ randomActivityInfo }),
+                                                                    headers: { "Content-Type": "application/json" },
+                                                                });
+
+                                                                if (response.ok) {
+                                                                    console.log("Activity seeded");
+                                                                    // seed hotel into db
+                                                                    const response = await fetch("/api/plans/hotel", {
+                                                                        method: "POST",
+                                                                        body: JSON.stringify({
+                                                                            name: randomHotelInfo.name,
+                                                                            price: randomHotelInfo.price,
+                                                                            rating: randomHotelInfo.rating,
+                                                                            address: randomHotelInfo.address,
+                                                                            reviews: randomHotelInfo.reviews[0].text,
+                                                                            contact_number: randomHotelInfo.contact_number,
+                                                                            image_url: randomHotelInfo.image_url,
+                                                                            web_url: randomHotelInfo.web_url,
+                                                                        }),
+                                                                        headers: { "Content-Type": "application/json" },
+                                                                    });
+
+                                                                    if (response.ok) {
+                                                                        console.log("Hotel seeded");
+                                                                        // seed restaurant into db
+                                                                        const response = await fetch("/api/plans/restaurant", {
+                                                                            method: "POST",
+                                                                            body: JSON.stringify({ randomRestaurantInfo }),
+                                                                            headers: { "Content-Type": "application/json" },
+                                                                        });
+
+                                                                        if (response.ok) {
+                                                                            console.log("Restaurant seeded");
+                                                                            // seed restaurant into db
+                                                                            const response = await fetch("/api/plans", {
+                                                                                method: "POST",
+                                                                                body: JSON.stringify({
+                                                                                    location_name: location_name,
+                                                                                    location_id: location_id,
+                                                                                    user_id: 4,
+                                                                                    activity_id: 3,
+                                                                                    hotel_id: 3,
+                                                                                    restaurant_id: 3,
+                                                                                }),
+                                                                                headers: { "Content-Type": "application/json" },
+                                                                            });
+
+                                                                            if (response.ok) {
+                                                                                console.log("Data successfully seeded");
+
+                                                                            } else {
+                                                                                alert("Error");
+                                                                            }
+
+                                                                        } else {
+                                                                            alert("Error");
+                                                                        }
+
+                                                                    } else {
+                                                                        alert("Error");
+                                                                    }
+
+                                                                } else {
+                                                                    alert("Error");
+                                                                }
+                                                            }
+                                                            seedPlan();
                                                         });
                                                 });
                                         });
                                 });
                         });
+
+                }).catch(function (err) {
+                    console.error(err);
                 });
-        }).catch(function (err) {
-            console.error(err);
+
+
+
         });
-
-
-
 }
-
 document
     .getElementById("formsubmitbutton")
     .addEventListener("click", getUserPreferences);

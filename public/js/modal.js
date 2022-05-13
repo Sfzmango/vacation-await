@@ -1,4 +1,4 @@
-var userPreference;
+/* var userPreference;
 
 function getUserPreferences() {
   userPreference = {};
@@ -86,3 +86,4 @@ document
   .addEventListener("click", getUserPreferences);
 
 module.exports = userPreference;
+*/
