@@ -1,3 +1,4 @@
+{{#each plans as |plan| }}
 <div class="uk-child-width-expand@s uk-text-center uk-margin-top uk-margin-left uk-width-1-4@m" uk-grid>
   <div>
     <div class="uk-card uk-card-default">
@@ -8,12 +9,13 @@
       </div>
       <div class="uk-card-body">
         <h3 class="uk-card-title">Plan</h3>
-        <p>Hotel:</p>
-        <p>Restaurant</p>
-        <p>Activity</p>
-        <button class="uk-button uk-button-primary">See Details</button>
+        <p>Hotel:{{plan.hotel.name}}</p>
+        <p>Restaurant:{{plan.restaurant.name}}</p>
+        <p>Activity:{{plan.activity.name}}</p>
+        <button class="uk-button uk-button-primary" onclick="window.location.href='/plan'">See Details</button>
       </div>
 
     </div>
   </div>
 </div>
+{{/each}}

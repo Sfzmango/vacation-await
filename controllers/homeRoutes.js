@@ -49,7 +49,28 @@ router.get("/signup", async (req, res) => {
 // user profile
 router.get("/profile", async (req, res) => {
   try {
-    res.render("profile");
+    const planData = await Plan.findAll({
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Hotel,
+        },
+        {
+          model: Activity,
+        },
+        {
+          model: Restaurant,
+        },
+      ],
+    });
+    const plans = planData.map((post) => post.get({ plain: true }));
+    console.log(plans);
+    console.log(plans[0].hotel.name);
+    res.render("profile", {
+      plans,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
