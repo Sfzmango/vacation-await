@@ -48,8 +48,21 @@ router.get("/signup", async (req, res) => {
 
 // user profile
 router.get("/profile", async (req, res) => {
+  if (
+    req.session.loggedIn == false ||
+    req.session.user_id == null ||
+    req.session.user_id <= 0
+  ) {
+    console.log(
+      "Potential Error : User is not logged in or user_id is not set in session"
+    );
+  }
+
   try {
     const planData = await Plan.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
       include: [
         {
           model: User,
@@ -65,11 +78,11 @@ router.get("/profile", async (req, res) => {
         },
       ],
     });
-    const plans = planData.map((post) => post.get({ plain: true }));
-    console.log(plans);
-    console.log(plans[0].hotel.name);
+
+    var plans = planData.map((plan) => plan.get({ plain: true }));
     res.render("profile", {
       plans,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     console.log(err);
@@ -79,8 +92,20 @@ router.get("/profile", async (req, res) => {
 
 // plans
 router.get("/plan", auth, async (req, res) => {
+  if (
+    req.session.loggedIn == false ||
+    req.session.user_id == null ||
+    req.session.user_id <= 0
+  ) {
+    console.log(
+      "Potential Error : User is not logged in or user_id is not set in session"
+    );
+  }
   try {
     const planData = await Plan.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
       include: [
         {
           model: User,
@@ -96,11 +121,10 @@ router.get("/plan", auth, async (req, res) => {
         },
       ],
     });
-    const plans = planData.map((post) => post.get({ plain: true }));
-    console.log(plans);
-    console.log(plans[0].hotel.name);
+    var plans = planData.map((plan) => plan.get({ plain: true }));
     res.render("plan", {
       plans,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     console.log(err);

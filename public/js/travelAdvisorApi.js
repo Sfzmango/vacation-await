@@ -24,8 +24,78 @@ function getUserPreferences() {
   let numAdults = userPreference.noOfAdults;
   let numRooms = userPreference.noOfRooms;
   let numNights = userPreference.noOfNights;
-  let hotelFilters = "free_wireless_internet_in_room";
-  let activityFilters = 47;
+  var selectedHotelType = [];
+  if (userPreference.freewifi) {
+    selectedHotelType.push("free_wireless_internet_in_room");
+  }
+  if (userPreference.spa) {
+    selectedHotelType.push("spa");
+  }
+  let randomUserPreferenceHotelIndex = Math.floor(
+    Math.random() * selectedHotelType.length
+  );
+
+  console.log(
+    "Selected index: ",
+    selectedHotelType[randomUserPreferenceHotelIndex]
+  );
+
+  let hotelFilters = "selectedHotelType[randomUserPreferenceHotelIndex]";
+
+  var selectedActivities = [];
+  if (userPreference.sights) {
+    selectedActivities.push(47);
+  }
+  if (userPreference.shopping) {
+    selectedActivities.push(26);
+  }
+  if (userPreference.museum) {
+    selectedActivities.push(49);
+  }
+  if (userPreference.nature) {
+    selectedActivities.push(57);
+  }
+
+  let randomUserPreferenceActivityIndex = Math.floor(
+    Math.random() * selectedActivities.length
+  );
+
+  console.log(
+    "Selected index: ",
+    selectedActivities[randomUserPreferenceActivityIndex]
+  );
+
+  let activityFilters = selectedActivities[randomUserPreferenceActivityIndex];
+
+  var selectedRestaurant = [];
+  if (userPreference.vegan) {
+    selectedRestaurant.push(10697);
+  }
+  if (userPreference.glutenfree) {
+    selectedRestaurant.push(10992);
+  }
+  if (userPreference.vegetarian) {
+    selectedRestaurant.push(10665);
+  }
+  if (userPreference.asian) {
+    selectedRestaurant.push(10659);
+  }
+  if (userPreference.american) {
+    selectedRestaurant.push(9908);
+  }
+  if (userPreference.european) {
+    selectedRestaurant.push(10654);
+  }
+
+  let randomUserPreferenceRestaurantIndex = Math.floor(
+    Math.random() * selectedRestaurant.length
+  );
+
+  console.log(
+    "Selected index: ",
+    selectedRestaurant[randomUserPreferenceRestaurantIndex]
+  );
+
   let cuisuineFilters = 9908;
   let dietRestrictions = 10665;
   let randomHotelInfo;
@@ -166,7 +236,7 @@ function getUserPreferences() {
                         price: `$${activityMin} - $${activityMax}`,
                         rating: activityInfo.rating,
                         address: activityInfo.address,
-                        reviews: activityInfo.reviews[0].summary,
+                        // reviews: activityInfo.reviews[0].summary,
                         contact_number: activityInfo.phone,
                         web_url: activityInfo.web_url,
                       };
@@ -243,8 +313,8 @@ function getUserPreferences() {
                                   price: `$${activityMin} - $${activityMax}`,
                                   rating: randomActivityInfo.rating,
                                   address: randomActivityInfo.address,
-                                  reviews:
-                                    randomActivityInfo.reviews[0].summary,
+                                  // reviews:
+                                  //   randomActivityInfo.reviews[0].summary,
                                   contact_number: randomActivityInfo.phone,
                                   web_url: randomActivityInfo.web_url,
                                 })
@@ -252,7 +322,7 @@ function getUserPreferences() {
 
                               async function seedPlan() {
                                 // seed activity into db
-                                const response = await fetch(
+                                const createActivityResponse = await fetch(
                                   "/api/plans/activity",
                                   {
                                     method: "POST",
@@ -263,8 +333,8 @@ function getUserPreferences() {
                                       price: `$${activityMin} - $${activityMax}`,
                                       rating: randomActivityInfo.rating,
                                       address: randomActivityInfo.address,
-                                      reviews:
-                                        randomActivityInfo.reviews[0].summary,
+                                      // reviews:
+                                      //   randomActivityInfo.reviews[0].summary,
                                       contact_number: randomActivityInfo.phone,
                                       web_url: randomActivityInfo.web_url,
                                     }),
@@ -274,10 +344,12 @@ function getUserPreferences() {
                                   }
                                 );
 
-                                if (response.ok) {
+                                if (createActivityResponse.ok) {
+                                  var activityResult =
+                                    await createActivityResponse.json();
                                   console.log("Activity seeded");
                                   // seed hotel into db
-                                  const response = await fetch(
+                                  const createHoteResponse = await fetch(
                                     "/api/plans/hotel",
                                     {
                                       method: "POST",
@@ -299,12 +371,17 @@ function getUserPreferences() {
                                     }
                                   );
 
-                                  if (response.ok) {
+                                  if (createHoteResponse.ok) {
+                                    var hotelResult =
+                                      await createHoteResponse.json();
+
+                                    // console.log(result.id);
                                     console.log("Hotel seeded");
+
+                                    // Make sure response of hotel has hotel.id;
                                     // seed restaurant into db
-                                    const response = await fetch(
-                                      "/api/plans/restaurant",
-                                      {
+                                    const createRestaurantResponse =
+                                      await fetch("/api/plans/restaurant", {
                                         method: "POST",
                                         body: JSON.stringify({
                                           name: restaurantInfo.name,
@@ -323,10 +400,11 @@ function getUserPreferences() {
                                         headers: {
                                           "Content-Type": "application/json",
                                         },
-                                      }
-                                    );
+                                      });
 
-                                    if (response.ok) {
+                                    if (createRestaurantResponse.ok) {
+                                      var restaurantResult =
+                                        await createRestaurantResponse.json();
                                       console.log("Restaurant seeded");
                                       // seed restaurant into db
                                       const response = await fetch(
@@ -336,10 +414,10 @@ function getUserPreferences() {
                                           body: JSON.stringify({
                                             location_name: location_name,
                                             location_id: location_id,
-                                            user_id: 4,
-                                            activity_id: 2,
-                                            hotel_id: 2,
-                                            restaurant_id: 2,
+                                            // user_id: 4,
+                                            activity_id: activityResult.id,
+                                            hotel_id: hotelResult.id,
+                                            restaurant_id: restaurantResult.id,
                                           }),
                                           headers: {
                                             "Content-Type": "application/json",

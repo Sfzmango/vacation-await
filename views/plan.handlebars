@@ -8,7 +8,7 @@
   <p>Rating:{{plan.hotel.rating}}</p>
   <p>Reviews:{{plan.hotel.reviews}}</p>
   <p>Contact number:{{plan.hotel.contact_number}}</p>
-  <p>Web URL:{{plan.hotel.web_url}}</p>
+  <p>Web URL:<a href="{{plan.hotel.web_url}}">{{plan.hotel.web_url}}</a></p>
 
   <h2>Restaurant</h2>
   <p>Name:{{plan.restaurant.name}}</p>
@@ -27,6 +27,6 @@
   <p>Rating:{{plan.activity.rating}}</p>
   <p>Reviews:{{plan.activity.reviews}}</p>
   <p>Contact number:{{plan.activity.contact_number}}</p>
-  <p>Web URL:{{plan.activity.web_url}}</p>
+  <p>Web URL:<a href="{{plan.activity.web_url}}">{{plan.activity.web_url}}</a></p>
 </div>
 {{/each}}
