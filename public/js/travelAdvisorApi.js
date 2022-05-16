@@ -40,7 +40,7 @@ function getUserPreferences() {
         method: "GET",
         headers: {
             "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-            "X-RapidAPI-Key": "3a79c109bemshab3af2a312fbbd8p173ab8jsn5f9ae7456df6"
+            "X-RapidAPI-Key": "443ea47c21msh7c14208cdc260b9p192da9jsna759fd20d196"
         }
     };
 
