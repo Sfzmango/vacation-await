@@ -11,6 +11,7 @@
 - [Installation](#-installation-)
 - [Usage](#-usage-)
 - [Technologies and Programs Used](#-technologies-and-programs-used-)
+- [Current Bugs](#-current_bugs-)
 - [Demonstration](#-demonstration-)
 - [Links](#-links-)
 - [Credits](#-credits-)
@@ -23,21 +24,24 @@
 - Maung Htike
 - Keerti Chaudhary
 - Callan Hunter
-### Email: 
+### Email: maunghtike1999@gmail.com
 <br>
 
 ## <ins> Description: </ins>
-        
+This is a program constructed with Javascript and utilizes Node.js. It features usage of the Express.js, MySQL2, DotEnv, Sequelize, Handlebars, and Bcrypt packages to create a travel webpage that lets the user get ideas for any fun day trips that they might be thinking about.
 
 <br>    
 
 ## <ins> Installation: </ins>
         
-Please download all the files included in the repository. Afterwards, please open your terminal into the repository folder and utilize Node.js's npm install feature to install all the needed packages.<br>***npm i***<br>
-
+The webpage is deployed on Heroku so there is no need to download any of the files to run the program. If you would like to instead install it locally, please download all the files included in the repository. Afterwards, please open your terminal into the repository folder and utilize Node.js's npm install feature to install all the used packages. Then, load up mysql and enter your password. Source the schema file and quit.
+<br>***npm i***<br>
+<br>***mysql -u root -p***<br>
+<br>***source db/schema.sql***<br>
 
 ## <ins> Usage: </ins>
         
+To start the program via Heroku, please go to https://vacation-awaits.herokuapp.com/. If you would like to start the program locally, please follow the local installation steps and type in ***npm start***. You will then be able to go to the proper routes to see the webpage. If you would like to login, please click the login navbar option. If you would like to signup, please select signup instead within the login route. If you would like to run the plan generation, please click on the "Start Planning" button on the first carousel image on the home page. Please fill out the text boxes and add any filters you would like. Once the generation is finished (about 10 seconds), head over to your profile page and there you would be able to see all your plans.
 
 <br>  
 
@@ -79,15 +83,20 @@ Please download all the files included in the repository. Afterwards, please ope
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 <br>
         
+## <ins> Current Bugs: </ins>
+- The current API is not very reliable. When you run a request, there is a small chance that the API will not provide us with some information such as restaurant without a review which would cause the request to cause an error. If the API is missing some needed parameters for the rest of the API call function and catches an error, the user will have to rerun the generation request in order to rerun the API calls.
+- After clicking generation, there is not any animation to show that our API call is being run and we are not redirected to the plans route.
+
 ## <ins> Demonstration: </ins>
         
-![Demonstration]()
+![Demonstration](./demo/demo.gif)
 <br><br>   
 
 ## <ins> Links: </ins>
         
-- [Github Deployed Website]()
-- [Github Repository]()
+- [Github Deployed Website](https://sfzmango.github.io/vacation-awaits/)
+- [Heroku Deployed Website](https://vacation-awaits.herokuapp.com/)
+- [Github Repository](https://github.com/Sfzmango/vacation-awaits)
 <br>     
 
 ## <ins> Credits: </ins>
@@ -105,7 +114,7 @@ Vacation Awaits Dev Team
 
 MIT License
 
-Copyright (c) 2022
+Copyright (c) 2022 The Vacation Awaits Team
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
